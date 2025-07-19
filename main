@@ -1,1 +1,13 @@
+from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
+from app.api.v1 import api_router # 修改导入路径
+from app.core.config import settings
+from app.db.base_class import Base # 导入 Base
+from app.db.database import engine # 导入 engine
+from app.db import psycopg_patch  # 导入补丁以应用修复
+from app.db import custom_types  # 导入自定义类型映射
 
+app = FastAPI(
+    title=settings.PROJECT_NAME,
+    openapi_url=f"{settings.API_V1_STR}/openapi.json"
+)
